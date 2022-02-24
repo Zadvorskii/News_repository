@@ -1,0 +1,48 @@
+<!--  наследуемся от шаблона default.html, который мы создавали ещё во времена flatpages -->
+{% extends 'flatpages/default.html' %}
+
+<!-- Название у нас будет news -->
+{% block title %}
+News
+{% endblock title %}
+
+{% load censor %}
+
+{% block content %}
+
+    <hr>
+    {% if news %}
+        <table>
+            <tr>
+                <td>
+                    Название
+                </td>
+                <td>
+                    Описание
+                </td>
+                <td>
+                    Категория
+                </td>
+                <td>
+                    Дата публикации
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    {{ news.title|censor }}
+                </td>
+                <td>
+                    {{ news.text|censor }}
+                </td>
+                <td>
+                    {{ news.category.name }}
+                </td>
+                <td>
+                    {{ news.date_time_in|date:'M d Y, H:m' }}
+                </td>
+            </tr>
+        </table>
+    {% else %}
+        <h2>Новостей нет!</h2>
+    {% endif %}
+{% endblock content %}
